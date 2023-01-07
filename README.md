@@ -1,2 +1,2 @@
-# tools-ocr
+# tools-orc
 ocr工具包
