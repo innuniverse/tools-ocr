@@ -4,6 +4,7 @@ package com.example.tools.orc.utils;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import okhttp3.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.URLEncoder;
@@ -15,10 +16,10 @@ import java.util.Objects;
 
 public class OCRUtil {
     public static final String URL_BAIDU_OAUTH_TOKEN = "https://aip.baidubce.com/oauth/2.0/token";
-    public static final String API_KEY = "xxxxxxxx";
-    public static final String SECRET_KEY = "xxxxxxxx";
-    public static final String TEMPLATE_SIGN = "xxxxxxxx";
-    public static final String CLASSIFIER_ID = "xxxxxxxx";
+    public static final String API_KEY = "";
+    public static final String SECRET_KEY = "";
+    public static final String TEMPLATE_SIGN = "";
+    public static final String CLASSIFIER_ID = "";
 
     static final OkHttpClient HTTP_CLIENT = new OkHttpClient().newBuilder().build();
 
@@ -56,8 +57,14 @@ public class OCRUtil {
      * @return base64编码信息，不带文件头
      * @throws IOException IO异常
      */
-    static String getFileContentAsBase64(String path) throws IOException {
+    public static String getFileContentAsBase64(String path) throws IOException {
         byte[] b = Files.readAllBytes(Paths.get(path));
+        return Base64.getEncoder().encodeToString(b);
+    }
+
+    public static String getFileContentAsBase64(MultipartFile file) throws IOException {
+        InputStream inputStream = file.getInputStream();
+        byte[] b = inputStream.readAllBytes();
         return Base64.getEncoder().encodeToString(b);
     }
 
